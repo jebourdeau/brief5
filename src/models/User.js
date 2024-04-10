@@ -1,4 +1,4 @@
-import db from '../db.js'
+import db from '../services/db.js'
 
 export default class User {
   constructor(username, email, password) {
@@ -24,6 +24,19 @@ export default class User {
     try {
       const queryText = 'SELECT * FROM users WHERE id = $1'
       const values = [userId]
+      const result = await client.query(queryText, values)
+      return result.rows[0]
+    } finally {
+      client.release()
+    }
+  }
+// // models/User.js
+
+  static async findByUsernameAndPassword(username, password) {
+    const client = await db.connect()
+    try {
+      const queryText = 'SELECT * FROM users WHERE username = $1 and password = $2'
+      const values = [username, password]
       const result = await client.query(queryText, values)
       return result.rows[0]
     } finally {
