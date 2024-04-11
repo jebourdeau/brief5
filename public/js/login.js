@@ -25,7 +25,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
     if(user) {
         console.log('Je suis connecté', user)
         // On le sauvegarde dans la session navigateur
-        sessionStorage.setItem('user', user.id)
+        sessionStorage.setItem('token', user.token)
 
         // On redirige sur la page /index.html
         document.location.href = '/'
